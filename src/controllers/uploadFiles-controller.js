@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./src/files/");
+    cb(null, "./src/tmp/");
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -24,13 +24,11 @@ router.post("/", upload.single("file"), async (req, res) => {
 
     if (endpoint.includes("xls" || "xlsx")) {
       const result = readXLSXFile(file);
-      return res
-        .status(200)
-        .json({
-          status: "ok",
-          message: "Your XLSX file uploaded successful",
-          result,
-        });
+      return res.status(200).json({
+        status: "ok",
+        message: "Your XLSX file uploaded successful",
+        result,
+      });
     } else if (endpoint.includes("csv")) {
       // csv files here
       const result = await readCSVFile(file);
