@@ -20,7 +20,7 @@ const adminLoginRouter = require("./src/controllers/admin-controller");
 const connectDB = require("./src/db/index");
 
 //db instance
-connectDB(dbUri, {
+connectDB(procces.env.DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
