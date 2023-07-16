@@ -36,6 +36,16 @@ app.use(
     origin: ["http://localhost:3000", "https://checkout.stripe.com"],
   })
 );
+
+app.get("/health_check", async (req, res) => {
+  try {
+    res.send("Health check working correct");
+  } catch (error) {
+    console.log("error", error);
+    res.send(error);
+  }
+});
+
 app.use("/get-data", getData);
 app.use("/auth", authRouter);
 app.use("/pay", paymentRouter);
