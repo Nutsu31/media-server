@@ -17,6 +17,7 @@ const updateStatus = require("./src/controllers/updateStatus-controller");
 const stripeResponse = require("./src/controllers/stripeResponse-controller");
 const uploadFileRouter = require("./src/controllers/uploadFiles-controller");
 const adminLoginRouter = require("./src/controllers/admin-controller");
+const getData = require("./src/controllers/websiteData-controller");
 const connectDB = require("./src/db/index");
 
 //db instance
@@ -24,13 +25,22 @@ connectDB(process.env.DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors());
+
+app.options("*", cors());
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://checkout.stripe.com"],
+  })
+);
+app.use("/get-data", getData);
 app.use("/auth", authRouter);
 app.use("/pay", paymentRouter);
-app.use("/update-status", updateStatus);
 app.use("/stripe-res", stripeResponse);
+app.use("/update-status", cors(), updateStatus);
 app.use("/upload-file", uploadFileRouter);
 app.use("/admin-login", adminLoginRouter);
 const Users = require("./src/schemas/User");

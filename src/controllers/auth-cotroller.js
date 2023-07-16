@@ -7,7 +7,7 @@ router.post("/register", async (req, res) => {
   try {
     const registrationData = req.body;
     const result = await register(registrationData);
-    
+
     res.status(200).send(result);
   } catch (error) {
     console.log("error occurred in register route: ", error);
@@ -29,7 +29,6 @@ router.post("/register", async (req, res) => {
     res.send(response);
   }
 });
-
 
 router.post("/login", async (req, res) => {
   try {

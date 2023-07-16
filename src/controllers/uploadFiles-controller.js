@@ -14,11 +14,12 @@ const upload = multer({ storage });
 const readCSVFile = require("../services/csv-service");
 const readXLSXFile = require("../services/xlsx-service");
 const readDOCXFile = require("../services/docx-service");
-const RandomPeople = require("../schemas/Test");
+const WebsiteDatas = require("../schemas/Test");
 
 router.post("/", upload.single("file"), async (req, res) => {
   const file = req.file;
-  const findDb = await RandomPeople.find();
+  console.log(file);
+  const findDb = await WebsiteDatas.find();
   try {
     const endpoint = file.originalname.split(".")[1].toLowerCase();
 

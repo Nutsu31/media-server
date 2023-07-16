@@ -4,7 +4,7 @@ async function verifyJwtForStripe(req, res, next) {
   const { jwtFromHeader } = req.query;
   const auth =
     jwtFromHeader && Jwt.verify(jwtFromHeader, process.env.JWT_SECRET);
-  console.log("🚀 ~ file: index.js:28 ~ jwtFromHeader ~ jwt:", auth);
+
   try {
     if (!auth) {
       throw new Error("Unauthorized jwt");

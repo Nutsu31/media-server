@@ -2,17 +2,11 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const { hash } = require("../utils/index");
 const user = {
-  Name: { type: String },
-  Website: { type: String },
-  Description: { type: String },
-  Country: { type: String },
-  Founded: { type: Number },
-  Industry: { type: String },
-  Id: { type: Number },
   FirstName: { type: String },
-  LastName: { type: String },
-  Age: { type: Number },
-  Country: { type: String },
+  domain: { type: String },
+  language: { type: String },
+  niche: { type: String },
+  adNetwork: { type: String },
 };
 const schema = new Schema(user);
 schema.pre("save", async function (next) {
@@ -28,4 +22,4 @@ schema.pre("save", async function (next) {
     throw error;
   }
 });
-module.exports = mongoose.model("RandomPeople", schema);
+module.exports = mongoose.model("WebsiteDatas", schema);

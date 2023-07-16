@@ -1,8 +1,8 @@
 const excelToJson = require("convert-excel-to-json");
-const RandomPeople = require("../schemas/Test");
+const WebsiteDatas = require("../schemas/Test");
 async function readXLSXFile(file) {
   let result = [];
-  const limit = 500;
+  const limit = 4;
   const { Sheet1 } = excelToJson({
     sourceFile: `./src/files/${file.originalname}`,
     header: {
@@ -16,7 +16,7 @@ async function readXLSXFile(file) {
     result.push(Sheet1[i]);
     if (result.length === limit) {
       console.log(result);
-      RandomPeople.insertMany(result);
+      WebsiteDatas.insertMany(result);
       result = [];
     }
   }
