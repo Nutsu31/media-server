@@ -9,6 +9,7 @@ const payment = {
   paymentDate: { type: String, default: paymentDate },
   paymentId: { type: String, required: true },
   user: { type: Schema.Types.ObjectId, ref: "users", unique: true },
+  createdAt: { type: Date, default: Date.now() },
 };
 
 const schema = new Schema(payment);
