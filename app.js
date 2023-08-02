@@ -25,6 +25,7 @@ const myPayOuts = require("./src/controllers/myPayOuts-controller");
 const getPayouts = require("./src/controllers/getPayOuts-controller");
 const users = require("./src/controllers/users-controller");
 const createPeymentIntent = require("./src/controllers/createClientIntent-controller");
+const userChangeLogs = require("./src/controllers/editUserInfo-controller");
 const connectDB = require("./src/db/index");
 
 //db instance
@@ -48,7 +49,7 @@ app.use("/mypayouts", myPayOuts);
 app.use("/get-payouts", getPayouts);
 app.use("/users", users);
 app.use("/create-payout", createPeymentIntent);
-
+app.use("/edit/users/:id", userChangeLogs);
 //-------------------------test.
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const User = require("./src/schemas/User");
@@ -77,6 +78,8 @@ app.post("/connect-account", async (req, res) => {
     res.send({ payoutAccId: account.id, stripeUrl: accountLink.url });
   } catch (error) {}
 });
+
+//------------------update user data ===========
 
 // --------------------------------------------------------
 app.listen(port, () => console.log(`App is up and working on port ${port}`));
