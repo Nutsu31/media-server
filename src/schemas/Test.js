@@ -7,6 +7,7 @@ const user = {
   language: { type: String },
   niche: { type: String },
   adNetwork: { type: String },
+  createdAt: { type: Date, default: Date.now() },
 };
 const schema = new Schema(user);
 schema.pre("save", async function (next) {
