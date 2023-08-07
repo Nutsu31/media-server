@@ -80,6 +80,16 @@ app.post("/connect-account", async (req, res) => {
 });
 
 //------------------update user data ===========
-
+app.get("/get-change-logs", async (req, res) => {
+  try {
+    const userChangeFirstName = require("./src/schemas/UserChangeFirstname");
+    const userChangeLastName = require("./src/schemas/UserChangeLastname");
+    const findNames = await userChangeFirstName.find();
+    const findLastNames = await userChangeLastName.find();
+    res
+      .status(200)
+      .json({ status: "ok", firstNames: findNames, lastNames: findLastNames });
+  } catch (error) {}
+});
 // --------------------------------------------------------
 app.listen(port, () => console.log(`App is up and working on port ${port}`));
