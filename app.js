@@ -11,7 +11,9 @@ const {
   stripeConf: { stripe_secret },
 } = require("./src/config/index");
 
-app.use(cors());
+app.use(cors({
+  origin:""
+}));
 
 const authRouter = require("./src/controllers/auth-cotroller");
 const paymentRouter = require("./src/controllers/payment-controller");
