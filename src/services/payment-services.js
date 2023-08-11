@@ -28,8 +28,8 @@ async function createCheckoutSession(jwtToken) {
         quantity: 1,
       },
     ],
-    success_url: "http://serpsupport.com/success",
-    cancel_url: "http://serpsupport.com/cancel",
+    success_url: "http://localhost:3000/success",
+    cancel_url: "http://localhost:3000/cancel",
   });
   return session;
 }

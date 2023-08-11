@@ -14,7 +14,7 @@ const upload = multer({ storage });
 const readCSVFile = require("../services/csv-service");
 const readXLSXFile = require("../services/xlsx-service");
 const readDOCXFile = require("../services/docx-service");
-const WebsiteDatas = require("../schemas/Test");
+const WebsiteDatas = require("../schemas/SiteDatas");
 
 router.post("/", upload.single("file"), async (req, res) => {
   const file = req.file;

@@ -7,6 +7,7 @@ const user = {
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   isActivated: { type: Boolean, default: false },
+  verified: { type: Boolean, default: false },
   payment: { type: String },
   referral: { type: Array },
   referralEmail: { type: String },

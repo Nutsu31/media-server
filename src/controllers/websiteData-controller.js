@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const WebsiteDatas = require("../schemas/Test");
+const WebsiteDatas = require("../schemas/SiteDatas");
 
 router.get("/", async (req, res) => {
   try {
