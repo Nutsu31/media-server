@@ -1,5 +1,5 @@
 const excelToJson = require("convert-excel-to-json");
-const WebsiteDatas = require("../schemas/Test");
+const WebsiteDatas = require("../schemas/SiteDatas");
 async function readXLSXFile(file) {
   let result = [];
   const limit = 4;

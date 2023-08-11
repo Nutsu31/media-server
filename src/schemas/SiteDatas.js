@@ -2,12 +2,13 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const { hash } = require("../utils/index");
 const user = {
-  FirstName: { type: String },
-  domain: { type: String },
-  language: { type: String },
-  niche: { type: String },
-  adNetwork: { type: String },
-  createdAt: { type: Date, default: Date.now() },
+  Name: { type: String },
+  Domain: { type: String },
+  Language: { type: String },
+  Niche: { type: String },
+  Email: { type: String },
+  AdNetwork: { type: String },
+  Added: { type: Number, default: Date.now() },
 };
 const schema = new Schema(user);
 schema.pre("save", async function (next) {
