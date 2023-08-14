@@ -22,7 +22,7 @@ router.get("/", verifyJwtForStripe, async (req, res) => {
     // Confirm the payment using the PaymentIntent ID
     const paymentIntent = await stripe.paymentIntents.confirm(paymentIntentId);
     const paymentTicket = await Payment.create({ ...paymentIntent });
-
+    
     if (!paymentIntent) {
       throw new Error("Error, paymentIntent doesn't exist");
     }
