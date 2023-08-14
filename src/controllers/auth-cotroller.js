@@ -4,7 +4,13 @@ const { generateReferralLink } = require("../utils/affiliate");
 const User = require("../schemas/User");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const { register, login } = require("../services/auth-services");
+const {
+  register,
+  login,
+  forgetPassword,
+  verifyCode,
+  changePassword,
+} = require("../services/auth-services");
 
 router.post("/register", async (req, res) => {
   try {
@@ -68,6 +74,47 @@ router.post("/login", async (req, res) => {
       }
     }
     res.send(response);
+  }
+});
+
+router.post("/forget-password", async (req, res) => {
+  try {
+    const forgetPass = await forgetPassword(req.body);
+    res.status(200).send({
+      status: "success",
+      message: "verification otp email sent",
+      verify: forgetPass,
+    });
+  } catch (error) {
+    throw error;
+  }
+});
+
+router.post("/verify-code", async (req, res) => {
+  try {
+    const verifyCodeEmail = await verifyCode(req.body);
+    console.log("verifyCodeEmail", verifyCodeEmail);
+    res.status(200).send({
+      status: "success",
+      message: "verification otp email sent",
+      verify: verifyCodeEmail,
+    });
+  } catch (error) {
+    throw error;
+  }
+});
+
+router.post("/replace-password", async (req, res) => {
+  try {
+    const changePasswordFunc = await changePassword(req.body);
+
+    res.status(200).send({
+      status: "success",
+      message: "verification otp email sent",
+      changePass: changePasswordFunc,
+    });
+  } catch (error) {
+    throw error;
   }
 });
 
