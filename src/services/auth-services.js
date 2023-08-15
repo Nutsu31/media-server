@@ -84,7 +84,7 @@ async function verifyCode(body) {
   try {
     const { email, otp } = body;
     if (!email || !otp) {
-       throw Error("Empty otp details are not allowed");
+      throw Error("Empty otp details are not allowed");
     } else {
       const existingUser = await userOPTVErification.findOne({ email });
       if (!existingUser) {
@@ -114,27 +114,26 @@ async function verifyCode(body) {
 
 async function changePassword(body) {
   try {
-     const { email, password } = body;
-     if (!email || !password) {
-       throw Error("Empty password");
-     } else{
-        const existingUser = await userOPTVErification.findOne({
-          email: email,
-          verify: true,
-        });
-        if(!existingUser){
-          throw Error("Start changing the password again ");
-        } else{
-          const hashPass = await hash(password);
-          const changePassword = await User.updateOne(
-            { email: email },
-            { password: hashPass}
-          );
-          await userOPTVErification.deleteMany({ email });
-          return changePassword;
-        }
-     }
-
+    const { email, password } = body;
+    if (!email || !password) {
+      throw Error("Empty password");
+    } else {
+      const existingUser = await userOPTVErification.findOne({
+        email: email,
+        verify: true,
+      });
+      if (!existingUser) {
+        throw Error("Start changing the password again ");
+      } else {
+        const hashPass = await hash(password);
+        const changePassword = await User.updateOne(
+          { email: email },
+          { password: hashPass }
+        );
+        await userOPTVErification.deleteMany({ email });
+        return changePassword;
+      }
+    }
   } catch (error) {
     throw error;
   }
