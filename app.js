@@ -107,7 +107,6 @@ app.post(
 
 // ------------------------------------pre register --------------//
 
-
 //------------------update user data ===========
 app.get("/get-change-logs", async (req, res) => {
   try {

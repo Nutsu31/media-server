@@ -47,13 +47,13 @@ async function login(userData) {
 async function forgetPassword(body) {
   try {
     const { email, otp } = body;
-    console.log("opt", otp);
+
     if (!email || !otp) {
-      throw Error("Empty opt details are not allowed");
+      throw { statusCode: 400, message: "your email is empty" };
     } else {
       const existingUser = await User.findOne({ email });
       const verifyFinder = await userOPTVErification.find({ email });
-      console.log("existingUser", existingUser);
+
       if (!existingUser) {
         throw { statusCode: 409, message: "user isn't register yet" };
       }
@@ -70,9 +70,6 @@ async function forgetPassword(body) {
         createdAt: Date.now(),
         expiresAt: Date.now() + 3600000,
       }).save();
-
-      console.log("verify", verify);
-
       return verify;
     }
   } catch (error) {
@@ -84,19 +81,25 @@ async function verifyCode(body) {
   try {
     const { email, otp } = body;
     if (!email || !otp) {
-      throw Error("Empty otp details are not allowed");
+      throw { statusCode: 409, message: "user isn't register yet" };
     } else {
       const existingUser = await userOPTVErification.findOne({ email });
       if (!existingUser) {
-        throw Error("email not find");
+        throw { statusCode: 401, message: "this emal isn't verified" };
       } else {
         if (existingUser.expiresAt < Date.now()) {
           await userOPTVErification.deleteMany({ email });
-          throw Error("time is over, please sent email again");
+          throw {
+            statusCode: 500,
+            message: "time is over, please sent email again",
+          };
         } else {
           const compareOTP = await validateHash(otp, existingUser.otp);
           if (!compareOTP) {
-            throw Error("code isn't correct");
+            throw {
+              statusCode: 500,
+              message: "code isn't correct",
+            };
           } else {
             const updateVerify = await userOPTVErification.updateOne(
               { email: email },
@@ -116,14 +119,14 @@ async function changePassword(body) {
   try {
     const { email, password } = body;
     if (!email || !password) {
-      throw Error("Empty password");
+      throw { statusCode: 400, message: "empty password" };
     } else {
       const existingUser = await userOPTVErification.findOne({
         email: email,
         verify: true,
       });
       if (!existingUser) {
-        throw Error("Start changing the password again ");
+        throw { statusCode: 409, message: "start changing password" };
       } else {
         const hashPass = await hash(password);
         const changePassword = await User.updateOne(

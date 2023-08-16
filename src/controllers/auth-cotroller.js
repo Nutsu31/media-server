@@ -86,21 +86,27 @@ router.post("/forget-password", async (req, res) => {
       verify: forgetPass,
     });
   } catch (error) {
-    throw error;
+    res.status(error.statusCode).send({
+      success: false,
+      message: error.message,
+    });
   }
 });
 
 router.post("/verify-code", async (req, res) => {
   try {
     const verifyCodeEmail = await verifyCode(req.body);
-    console.log("verifyCodeEmail", verifyCodeEmail);
+
     res.status(200).send({
       status: "success",
       message: "verification otp email sent",
       verify: verifyCodeEmail,
     });
   } catch (error) {
-    throw error;
+    res.status(error.statusCode).send({
+      success: false,
+      message: error.message,
+    });
   }
 });
 
@@ -114,7 +120,10 @@ router.post("/replace-password", async (req, res) => {
       changePass: changePasswordFunc,
     });
   } catch (error) {
-    throw error;
+    res.status(error.statusCode).send({
+      success: false,
+      message: error.message,
+    });
   }
 });
 
